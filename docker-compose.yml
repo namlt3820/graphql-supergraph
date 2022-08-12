@@ -1,0 +1,15 @@
+version: '2'
+
+services:
+  supergraph:
+    container_name: "supergraph"
+    ports:
+      - "${GRAPHQL_PORT}:${GRAPHQL_PORT}"
+      - "1001:1001"
+      - "1002:1002"
+      - "1003:1003"
+    environment:
+      - NODE_ENV
+    build:
+      context: .
+    restart: always

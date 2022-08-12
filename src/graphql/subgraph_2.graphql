@@ -1,0 +1,7 @@
+type CommonResponse {
+	message: String!
+}
+
+type Query {
+	subgraph_2: CommonResponse
+}
