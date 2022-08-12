@@ -1,4 +1,6 @@
 import axios from "axios";
+import { SUPERGRAPH_URL } from "../infra/config";
+
 const verify_token = async (authorization: string) => {
 	const query = `
                 query auth {
@@ -10,11 +12,7 @@ const verify_token = async (authorization: string) => {
 		data: {
 			data: { auth },
 		},
-	} = await axios.post(
-		SUPERGRAPH_URL,
-		{ query },
-		{ headers, timeout: 5000 }
-	);
+	} = await axios.post(SUPERGRAPH_URL, { query }, { headers, timeout: 5000 });
 
 	return auth;
 };
