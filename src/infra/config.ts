@@ -11,11 +11,11 @@ const envFilePath = path.join(
 console.log({ envFilePath });
 config({ path: envFilePath });
 
-["NODE_ENV", "GRAPHQL_PORT", "APOLLO_KEY", "APOLLO_GRAPH_REF"].forEach((el) => {
+["NODE_ENV", "GRAPHQL_PORT", "APOLLO_KEY", "APOLLO_GRAPH_REF", "SUPERGRAPH_URL"].forEach((el) => {
 	if (!process.env[el]) {
 		throw new Error(`${el} is required`);
 	}
 });
 
-export const { NODE_ENV, GRAPHQL_PORT, APOLLO_KEY, APOLLO_GRAPH_REF } =
+export const { NODE_ENV, GRAPHQL_PORT, APOLLO_KEY, APOLLO_GRAPH_REF, SUPERGRAPH_URL } =
 	process.env;

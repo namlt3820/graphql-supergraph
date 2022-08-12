@@ -11,7 +11,7 @@ const verify_token = async (authorization: string) => {
 			data: { auth },
 		},
 	} = await axios.post(
-		"http://localhost:1000",
+		SUPERGRAPH_URL,
 		{ query },
 		{ headers, timeout: 5000 }
 	);
