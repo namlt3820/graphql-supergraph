@@ -1,7 +1,6 @@
 const subgraph_1_resolver = {
 	Query: {
 		subgraph_1: async (root, param, ctx, info) => {
-			console.log("request from super graph");
 			return {
 				message: "Hello from subgraph_1",
 			};
