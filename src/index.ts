@@ -1,14 +1,11 @@
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import { ApolloServer } from "apollo-server";
-import { ApolloGateway, RemoteGraphQLDataSource } from "@apollo/gateway";
-import {
-	subgraph_1_resolver,
-	subgraph_2_resolver,
-	subgraph_auth_resolver,
-} from "./graphql/resolvers";
+import { ApolloGateway } from "@apollo/gateway";
+import { subgraph_1_resolver, subgraph_2_resolver } from "./graphql/resolvers";
 import { loadFiles } from "@graphql-tools/load-files";
 import "./infra/config";
 import { GRAPHQL_PORT } from "./infra/config";
+import { CustomApolloServerPlugin } from "./plugin";
 
 const initSubgraph1 = async () => {
 	try {
@@ -19,7 +16,6 @@ const initSubgraph1 = async () => {
 			),
 			debug: true,
 			plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
-			context: (req) => req,
 		});
 
 		const { url } = await server.listen({ port: 1001 });
@@ -38,7 +34,6 @@ const initSubgraph2 = async () => {
 			),
 			debug: true,
 			plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
-			context: (req) => req,
 		});
 
 		const { url } = await server.listen({ port: 1002 });
@@ -48,43 +43,16 @@ const initSubgraph2 = async () => {
 	}
 };
 
-const initSubgraphAuth = async () => {
-	try {
-		const server = new ApolloServer({
-			resolvers: subgraph_auth_resolver,
-			typeDefs: await loadFiles(
-				__dirname + "/graphql/subgraph_auth.graphql"
-			),
-			debug: true,
-			plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
-			context: (req) => req,
-		});
-
-		const { url } = await server.listen({ port: 1003 });
-		console.log(`🚀 Subgraph_auth ready at ${url}`);
-	} catch (e) {
-		console.log(e);
-	}
-};
-
-class AuthenticatedDataSource extends RemoteGraphQLDataSource {
-	willSendRequest({ request, context }) {
-		request.http.headers.set("authorization", context.authorization);
-		request.http.headers.set("entity", context.entity);
-	}
-}
-
 const initSupergraph = async () => {
 	try {
-		const gateway = new ApolloGateway({
-			buildService({ name, url }) {
-				return new AuthenticatedDataSource({ url });
-			},
-		});
+		const gateway = new ApolloGateway();
 
 		const server = new ApolloServer({
 			gateway,
-			plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
+			plugins: [
+				ApolloServerPluginLandingPageGraphQLPlayground(),
+				new CustomApolloServerPlugin(),
+			],
 			context: ({ req }) => {
 				const { authorization = "", entity = "" } = req.headers;
 				return { authorization, entity };
@@ -100,12 +68,7 @@ const initSupergraph = async () => {
 
 const start = async () => {
 	try {
-		await Promise.all([
-			initSubgraph1(),
-			initSubgraph2(),
-			initSubgraphAuth(),
-			initSupergraph(),
-		]);
+		await Promise.all([initSubgraph1(), initSubgraph2(), initSupergraph()]);
 	} catch (e) {
 		console.log(e);
 	}

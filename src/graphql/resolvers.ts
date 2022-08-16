@@ -1,36 +1,9 @@
-import axios from "axios";
-import { SUPERGRAPH_URL } from "../infra/config";
-
-const verify_token = async (authorization: string) => {
-	const query = `
-                query auth {
-                    auth 
-                }`;
-	const headers = { authorization };
-
-	const {
-		data: {
-			data: { auth },
-		},
-	} = await axios.post(SUPERGRAPH_URL, { query }, { headers, timeout: 5000 });
-
-	return auth;
-};
-
 const subgraph_1_resolver = {
 	Query: {
 		subgraph_1: async (root, param, ctx, info) => {
-			const {
-				req: {
-					headers: { authorization = "" },
-				},
-			} = ctx;
-			const message = (await verify_token(authorization))
-				? "Hello from subgraph_1"
-				: "Authen failed";
-
+			console.log("request from super graph");
 			return {
-				message,
+				message: "Hello from subgraph_1",
 			};
 		},
 	},
@@ -38,34 +11,10 @@ const subgraph_1_resolver = {
 
 const subgraph_2_resolver = {
 	Query: {
-		subgraph_2: async (root, param, ctx, info) => {
-			const {
-				req: {
-					headers: { authorization = "" },
-				},
-			} = ctx;
-			const message = (await verify_token(authorization))
-				? "Hello from subgraph_2"
-				: "Authen failed";
-
-			return {
-				message,
-			};
-		},
+		subgraph_2: async (root, param, ctx, info) => ({
+			message: "Hello from subgraph_2",
+		}),
 	},
 };
 
-const subgraph_auth_resolver = {
-	Query: {
-		auth: (root, param, ctx, info) => {
-			const {
-				req: {
-					headers: { authorization },
-				},
-			} = ctx;
-			return authorization === "Bearer";
-		},
-	},
-};
-
-export { subgraph_1_resolver, subgraph_2_resolver, subgraph_auth_resolver };
+export { subgraph_1_resolver, subgraph_2_resolver };

@@ -5,13 +5,8 @@
   "scripts": {
     "start": "node dist/index.js",
     "build": "rm -rf dist && tsc && find src/ -type f -name \"*.graphql\" -exec cp {} dist/graphql \\;",
-    "test": "cross-env NODE_ENV=test ts-mocha -p tsconfig.json 'src/**/*.test.ts'",
-    "test:pattern": "cross-env NODE_ENV=test ts-mocha -p tsconfig.json 'src/**/*.test.ts' -g",
     "dev": "cross-env NODE_ENV=develop ts-node src/index.ts",
-    "dev:docker": "docker-compose --env-file ./env/.env.develop up --build -d",
-    "dev:local": "cross-env NODE_ENV=local ts-node src/index.ts",
-    "prod:testnet": "docker-compose --env-file env/.env.prod_testnet up --build -d",
-    "prod:mainnet": "docker-compose --env-file env/.env.prod_mainnet up --build -d"
+    "dev:docker": "docker-compose --env-file ./env/.env.develop up --build -d"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^8.5.8",
@@ -25,10 +20,8 @@
   "dependencies": {
     "@apollo/gateway": "^2.0.5",
     "@graphql-tools/load-files": "^6.6.1",
-    "@sentry/node": "^6.13.3",
     "apollo-server": "^3.10.1",
-    "apollo-server-express": "^3.10.1",
-    "axios": "^0.27.2",
+    "apollo-server-plugin-base": "^3.6.2",
     "dotenv": "^10.0.0",
     "graphql": "^16.5.0"
   },
