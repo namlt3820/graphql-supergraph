@@ -1,7 +1,7 @@
-type CommonResponse {
-	message: String!
+type CommonResponse2 {
+	message2: String!
 }
 
 type Query {
-	subgraph_2: CommonResponse
+	subgraph_2: CommonResponse2
 }
