@@ -13,6 +13,7 @@ const subgraph_2_resolver = {
 	Query: {
 		subgraph_2: async (root, param, ctx, info) => ({
 			message2: "Hello from subgraph_2",
+			anotherMessage: "Test github action again"
 		}),
 	},
 };

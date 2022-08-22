@@ -1,5 +1,6 @@
 type CommonResponse2 {
 	message2: String!
+	anotherMessage: String!
 }
 
 type Query {
