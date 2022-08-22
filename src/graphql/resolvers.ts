@@ -3,6 +3,7 @@ const subgraph_1_resolver = {
 		subgraph_1: async (root, param, ctx, info) => {
 			return {
 				message1: "Hello from subgraph_1",
+				anotherMessage: "Hi from github action"
 			};
 		},
 	},
