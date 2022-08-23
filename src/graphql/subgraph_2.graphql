@@ -5,4 +5,5 @@ type CommonResponse2 {
 
 type Query {
 	subgraph_2: CommonResponse2
+	api_version: String!
 }
