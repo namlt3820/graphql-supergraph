@@ -6,7 +6,7 @@ const subgraph_1_resolver = {
 				anotherMessage: "Hi from github action",
 			};
 		},
-		api_version: () => "subgraph_1"
+		api_version: () => 1
 	},
 };
 
