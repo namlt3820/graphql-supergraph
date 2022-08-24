@@ -1,9 +1,21 @@
+scalar JSON
+
 type CommonResponse1 {
 	message1: String!
 	anotherMessage: String!
 }
 
+type api_data_subgraph_1 {
+	version: String!
+	config: JSON
+}
+
+type api_data @key(fields: "id") {
+	id: ID!
+	subgraph_1: api_data_subgraph_1
+}
+
 type Query {
 	subgraph_1: CommonResponse1
-	api_version: String!
+	api_data: api_data
 }
