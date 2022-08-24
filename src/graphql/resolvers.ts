@@ -10,7 +10,6 @@ const subgraph_1_resolver = {
 			__resolveReference() {
 				return {
 					api_data: {
-						_id: "1",
 						subgraph_1: {
 							version: "subgraph_1_1.0.0",
 							config: JSON.stringify({ name: "subgraph_1" }),
@@ -32,7 +31,6 @@ const subgraph_2_resolver = {
 			__resolveReference() {
 				return {
 					api_data: {
-						_id: "1",
 						subgraph_2: {
 							version: "subgraph_2_1.0.0",
 							config: JSON.stringify({ name: "subgraph_2" }),

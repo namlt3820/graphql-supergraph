@@ -12,8 +12,7 @@ type api_data_subgraph_1 {
 	config: JSON
 }
 
-type api_data @key(fields: "id") {
-	id: ID!
+type api_data @shareable {
 	subgraph_1: api_data_subgraph_1
 }
 
