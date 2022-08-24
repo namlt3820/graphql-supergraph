@@ -1,44 +1,34 @@
 const subgraph_1_resolver = {
 	Query: {
-		subgraph_1: async (root, param, ctx, info) => {
-			return {
-				message1: "Hello from subgraph_1",
-				anotherMessage: "Hi from github action",
-			};
-		},
-		api_data: {
-			__resolveReference() {
-				return {
-					api_data: {
-						subgraph_1: {
-							version: "subgraph_1_1.0.0",
-							config: JSON.stringify({ name: "subgraph_1" }),
-						},
-					},
-				};
+		subgraph_1: () => ({
+			message1: "Hello from subgraph_1",
+			anotherMessage: "Hi from github action",
+		}),
+		api_data: () => ({
+			api_data: {
+				subgraph_1: {
+					version: "subgraph_1_1.0.0",
+					config: JSON.stringify({ name: "subgraph_1" }),
+				},
 			},
-		},
+		}),
 	},
 };
 
 const subgraph_2_resolver = {
 	Query: {
-		subgraph_2: async (root, param, ctx, info) => ({
+		subgraph_2: () => ({
 			message2: "Hello from subgraph_2",
 			anotherMessage: "Test github action again",
 		}),
-		api_data: {
-			__resolveReference() {
-				return {
-					api_data: {
-						subgraph_2: {
-							version: "subgraph_2_1.0.0",
-							config: JSON.stringify({ name: "subgraph_2" }),
-						},
-					},
-				};
+		api_data: () => ({
+			api_data: {
+				subgraph_2: {
+					version: "subgraph_2_1.0.0",
+					config: JSON.stringify({ name: "subgraph_2" }),
+				},
 			},
-		},
+		}),
 	},
 };
 

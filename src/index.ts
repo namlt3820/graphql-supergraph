@@ -3,6 +3,7 @@ import { ApolloServer } from "apollo-server";
 import { ApolloGateway } from "@apollo/gateway";
 import { subgraph_1_resolver, subgraph_2_resolver } from "./graphql/resolvers";
 import { loadFiles } from "@graphql-tools/load-files";
+import { buildSubgraphSchema } from "@apollo/subgraph";
 import "./infra/config";
 import { GRAPHQL_PORT } from "./infra/config";
 import { CustomApolloServerPlugin } from "./plugin";
@@ -10,10 +11,12 @@ import { CustomApolloServerPlugin } from "./plugin";
 const initSubgraph1 = async () => {
 	try {
 		const server = new ApolloServer({
-			resolvers: subgraph_1_resolver,
-			typeDefs: await loadFiles(
-				__dirname + "/graphql/subgraph_1.graphql"
-			),
+			schema: buildSubgraphSchema({
+				resolvers: subgraph_1_resolver,
+				typeDefs: await loadFiles(
+					__dirname + "/graphql/subgraph_1.graphql"
+				),
+			}),
 			debug: true,
 			plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
 		});
@@ -28,10 +31,12 @@ const initSubgraph1 = async () => {
 const initSubgraph2 = async () => {
 	try {
 		const server = new ApolloServer({
-			resolvers: subgraph_2_resolver,
-			typeDefs: await loadFiles(
-				__dirname + "/graphql/subgraph_2.graphql"
-			),
+			schema: buildSubgraphSchema({
+				resolvers: subgraph_2_resolver,
+				typeDefs: await loadFiles(
+					__dirname + "/graphql/subgraph_2.graphql"
+				),
+			}),
 			debug: true,
 			plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
 		});
