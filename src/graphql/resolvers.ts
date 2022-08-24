@@ -5,11 +5,9 @@ const subgraph_1_resolver = {
 			anotherMessage: "Hi from github action",
 		}),
 		api_data: () => ({
-			api_data: {
-				subgraph_1: {
-					version: "subgraph_1_1.0.0",
-					config: JSON.stringify({ name: "subgraph_1" }),
-				},
+			subgraph_1: {
+				version: "subgraph_1_1.0.0",
+				config: JSON.stringify({ name: "subgraph_1" }),
 			},
 		}),
 	},
@@ -22,11 +20,9 @@ const subgraph_2_resolver = {
 			anotherMessage: "Test github action again",
 		}),
 		api_data: () => ({
-			api_data: {
-				subgraph_2: {
-					version: "subgraph_2_1.0.0",
-					config: JSON.stringify({ name: "subgraph_2" }),
-				},
+			subgraph_2: {
+				version: "subgraph_2_1.0.0",
+				config: JSON.stringify({ name: "subgraph_2" }),
 			},
 		}),
 	},
