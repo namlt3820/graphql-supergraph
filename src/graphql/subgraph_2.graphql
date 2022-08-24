@@ -1,3 +1,5 @@
+scalar JSON
+
 type CommonResponse2 {
 	message2: String!
 	anotherMessage: String!
@@ -12,7 +14,6 @@ type api_data @key(fields: "id") {
 	id: ID!
 	subgraph_2: api_data_subgraph_2
 }
-
 
 type Query {
 	subgraph_2: CommonResponse2
