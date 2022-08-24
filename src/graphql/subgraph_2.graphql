@@ -12,7 +12,7 @@ type api_data_subgraph_2 {
 	config: JSON
 }
 
-type api_data {
+type api_data @shareable {
 	subgraph_2: api_data_subgraph_2
 }
 
